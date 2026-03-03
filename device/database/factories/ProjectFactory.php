@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use App\Models\Project;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use VibellmPC\Common\Enums\ProjectFramework;
+use VibellmPC\Common\Enums\ProjectStatus;
+
+/** @extends Factory<Project> */
+class ProjectFactory extends Factory
+{
+    protected $model = Project::class;
+
+    /** @return array<string, mixed> */
+    public function definition(): array
+    {
+        $name = fake()->unique()->words(2, true);
+
+        return [
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'framework' => fake()->randomElement(ProjectFramework::cases()),
+            'status' => ProjectStatus::Created,
+            'path' => config('vibellmpc.projects.base_path').'/'.Str::slug($name),
+            'port' => fake()->numberBetween(3000, 9000),
+            'clone_url' => null,
+            'container_id' => null,
+            'tunnel_subdomain_path' => null,
+            'tunnel_enabled' => false,
+            'env_vars' => null,
+            'last_started_at' => null,
+            'last_stopped_at' => null,
+        ];
+    }
+
+    public function running(): static
+    {
+        return $this->state(fn () => [
+            'status' => ProjectStatus::Running,
+            'container_id' => 'container_'.fake()->sha1(),
+            'last_started_at' => now(),
+        ]);
+    }
+
+    public function stopped(): static
+    {
+        return $this->state(fn () => [
+            'status' => ProjectStatus::Stopped,
+            'last_stopped_at' => now(),
+        ]);
+    }
+
+    public function cloned(): static
+    {
+        return $this->state(fn () => [
+            'clone_url' => 'https://github.com/'.fake()->userName().'/'.fake()->slug(2).'.git',
+        ]);
+    }
+
+    public function forFramework(ProjectFramework $framework): static
+    {
+        return $this->state(fn () => [
+            'framework' => $framework,
+            'port' => $framework->defaultPort(),
+        ]);
+    }
+}

@@ -1,0 +1,153 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\TunnelProvisionRequest;
+use App\Http\Requests\Api\TunnelRegisterRequest;
+use App\Http\Requests\Api\TunnelRoutesUpdateRequest;
+use App\Http\Resources\TunnelRouteResource;
+use App\Services\CloudflareTunnelService;
+use App\Services\SubdomainService;
+use App\Services\TunnelRoutingService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class DeviceTunnelController extends Controller
+{
+    public function __construct(
+        private readonly TunnelRoutingService $routing,
+    ) {}
+
+    public function register(TunnelRegisterRequest $request, string $uuid): JsonResponse
+    {
+        $device = $request->attributes->get('device');
+
+        $this->routing->registerTunnel($device, $request->validated('tunnel_url'));
+
+        return response()->json([
+            'message' => 'Tunnel registered',
+            'tunnel_url' => $device->fresh()->tunnel_url,
+        ]);
+    }
+
+    public function provision(
+        TunnelProvisionRequest $request,
+        string $uuid,
+        SubdomainService $subdomainService,
+        CloudflareTunnelService $cfService,
+    ): JsonResponse {
+        $device = $request->attributes->get('device');
+        $user = $request->user();
+        $subdomain = $request->validated('subdomain');
+        $deviceAppPort = (int) config('cloudflare.device_app_port');
+
+        $isOwnSubdomain = $user->username === $subdomain;
+
+        if (! $isOwnSubdomain && ! $subdomainService->isAvailable($subdomain, $user->id)) {
+            return response()->json(['error' => 'Subdomain is not available.'], 409);
+        }
+
+        $subdomainService->updateSubdomain($user, $subdomain);
+
+        $tunnel = $cfService->createTunnel("device-{$device->uuid}");
+        $tunnelId = $tunnel['id'];
+
+        $cfService->configureTunnelIngress($tunnelId, "{$subdomain}.vibellmpc.com", $deviceAppPort);
+        $cfService->createDnsRecord($subdomain, $tunnelId);
+
+        // Use token from create response when available (new tunnels),
+        // fall back to separate token fetch (existing/re-used tunnels).
+        $token = $tunnel['token'] ?? $cfService->getTunnelToken($tunnelId);
+
+        $device->update(['tunnel_url' => "https://{$subdomain}.vibellmpc.com"]);
+
+        $this->routing->updateRoutes($device, $subdomain, [
+            ['path' => '/', 'target_port' => $deviceAppPort],
+        ]);
+
+        return response()->json([
+            'tunnel_id' => $tunnelId,
+            'tunnel_token' => $token,
+        ]);
+    }
+
+    public function updateRoutes(TunnelRoutesUpdateRequest $request, string $uuid): JsonResponse
+    {
+        $device = $request->attributes->get('device');
+        $validated = $request->validated();
+
+        $routes = $this->routing->updateRoutes(
+            $device,
+            $validated['subdomain'],
+            $validated['routes'],
+        );
+
+        return response()->json([
+            'message' => 'Routes updated',
+            'routes' => TunnelRouteResource::collection($routes),
+        ]);
+    }
+
+    public function reconfigure(
+        Request $request,
+        string $uuid,
+        CloudflareTunnelService $cfService,
+    ): JsonResponse {
+        $device = $request->attributes->get('device');
+
+        $route = $device->tunnelRoutes()->active()->first();
+
+        if (! $route) {
+            return response()->json(['error' => 'No active tunnel route found.'], 404);
+        }
+
+        $tunnelName = "device-{$device->uuid}";
+        $tunnel = $cfService->findTunnelByName($tunnelName);
+
+        if (! $tunnel) {
+            return response()->json(['error' => 'Cloudflare tunnel not found.'], 404);
+        }
+
+        $hostname = "{$route->subdomain}.vibellmpc.com";
+
+        // Accept a full ingress array from the device, or fall back to a single port.
+        $ingress = $request->input('ingress');
+
+        if (is_array($ingress) && $ingress !== []) {
+            $rules = array_map(fn (array $rule) => [
+                'hostname' => $hostname,
+                ...array_filter([
+                    'path' => $rule['path'] ?? null,
+                    'service' => $rule['service'],
+                    'originRequest' => new \stdClass,
+                ]),
+            ], $ingress);
+
+            $cfService->updateTunnelIngress($tunnel['id'], $rules);
+        } else {
+            $port = (int) ($request->input('port') ?? config('cloudflare.device_app_port'));
+            $cfService->configureTunnelIngress($tunnel['id'], $hostname, $port);
+
+            $route->update(['target_port' => $port]);
+        }
+
+        return response()->json([
+            'message' => 'Tunnel ingress reconfigured',
+            'hostname' => $hostname,
+        ]);
+    }
+
+    public function routes(Request $request, string $uuid): JsonResponse
+    {
+        $device = $request->attributes->get('device');
+
+        $routes = $device->tunnelRoutes()->active()->get();
+
+        return response()->json([
+            'routes' => TunnelRouteResource::collection($routes),
+        ]);
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "vibellmpc/common",
+    "description": "Shared DTOs, enums, and API contracts for VibeLLMPC device and cloud apps.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "VibellmPC\\Common\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

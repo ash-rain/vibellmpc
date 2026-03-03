@@ -1,0 +1,88 @@
+services:
+  cloud:
+    build:
+      context: ..
+      dockerfile: cloud/Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ../packages:/var/www/packages
+      - tunnel-data:/tunnel
+    ports:
+      - "8082:8080"
+    environment:
+      APP_NAME: VibeLLMPC
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8082
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: vibellmpc_cloud
+      DB_USERNAME: vibellmpc
+      DB_PASSWORD: vibellmpc
+      QUEUE_CONNECTION: redis
+      CACHE_STORE: redis
+      SESSION_DRIVER: redis
+      REDIS_HOST: redis-cloud
+      DEVICE_APP_PORT: 8080
+      TUNNEL_TOKEN_PATH: /tunnel/token
+      CLOUD_TUNNEL_TOKEN: "${CLOUD_TUNNEL_TOKEN:-}"
+      SESSION_COOKIE: vibellmpc_cloud_session
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-cloud:
+        condition: service_healthy
+
+  cloudflared:
+    build:
+      context: ../device/docker
+      dockerfile: cloudflared.Dockerfile
+    volumes:
+      - ../device/docker/cloudflared-entrypoint.sh:/entrypoint.sh:ro
+      - tunnel-data:/tunnel:ro
+    network_mode: "service:cloud"
+    depends_on:
+      cloud:
+        condition: service_healthy
+    restart: always
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: vibellmpc_cloud
+      POSTGRES_USER: vibellmpc
+      POSTGRES_PASSWORD: vibellmpc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vibellmpc -d vibellmpc_cloud"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis-cloud:
+    image: valkey/valkey:8-alpine
+    ports:
+      - "6381:6379"
+    volumes:
+      - redis-cloud-data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  tunnel-data:
+  postgres-data:
+  redis-cloud-data:

@@ -1,0 +1,257 @@
+---
+meta:
+  title: "VibeLLMPC — Conecta. Escanea. Programa. Publica."
+  description: "Un Raspberry Pi 5 listo para programar con IA. Escanea el QR, conecta tus cuentas y despliega en la web en minutos."
+
+nav:
+  how_it_works: "Cómo funciona"
+  whats_included: "Qué incluye"
+  software: "Software"
+  features: "Características"
+  pricing: "Precios"
+  specs: "Especificaciones"
+  faq: "Preguntas frecuentes"
+  join_waitlist: "Únete a la lista de espera"
+
+hero:
+  badge: "Próximamente — Únete a la lista de espera"
+  title_line1: "Conecta. Escanea."
+  title_line2: "Programa. Publica."
+  description: "Un Raspberry Pi 5 listo para programar con IA. Escanea el código QR, conecta ChatGPT, Copilot y más, y despliega tus proyectos en la web — todo desde una pequeña caja en tu escritorio."
+  image_alt: "Dos dispositivos VibeLLMPC — un Raspberry Pi 5 en una carcasa personalizada con acentos LED verdes y puertos visibles"
+  spam_notice: "Sin spam. Cancela cuando quieras. Te enviaremos un solo email cuando lancemos."
+
+how_it_works:
+  title: "De la caja a producción en 5 minutos"
+  subtitle: "Tres pasos. Sin terminal. Sin experiencia en Linux."
+  steps:
+    - number: "1"
+      title: "Escanea el código QR"
+      description: "Conecta tu VibeLLMPC y escanea el código QR del dispositivo con tu teléfono. Crea tu cuenta y reclama tu dispositivo en <strong class=\"text-gray-300\">vibellmpc.com/pair</strong>."
+    - number: "2"
+      title: "Conecta tu IA y tu código"
+      description: "Un asistente guiado te lleva paso a paso para conectar OpenAI, Anthropic, Copilot y más. VS Code viene preinstalado y se configura automáticamente."
+    - number: "3"
+      title: "Construye y despliega"
+      description: "Crea proyectos a partir de plantillas, programa con asistencia de IA y despliega al instante en <strong class=\"text-gray-300\">yourname.vibellmpc.com</strong> con un solo clic."
+
+showcase:
+  image_alt: "Tres dispositivos VibeLLMPC en diferentes tamaños — unidades Raspberry Pi 5 en carcasas blindadas personalizadas con iluminación LED verde"
+  caption: "Carcasas diseñadas a medida. Hardware de verdad. Mínima huella."
+
+whats_included:
+  title: "Qué hay en la caja"
+  subtitle: "Todo lo que necesitas para empezar a construir. Nada que no."
+  items:
+    - title: "Raspberry Pi 5"
+      description: "16 GB de RAM LPDDR4X — el Pi más potente jamás fabricado"
+    - title: "SSD NVMe de 128 GB"
+      description: "SSD NVMe preconfigurado — almacenamiento rápido y fiable para tus proyectos, herramientas y contenedores"
+    - title: "Carcasa personalizada"
+      description: "Carcasa moldeada por inyección con refrigeración pasiva — queda genial en tu escritorio"
+    - title: "Fuente de alimentación USB-C"
+      description: "27W (5V/5A) — todo lo que el Pi necesita, incluido"
+    - title: "Cable Ethernet"
+      description: "Cable Cat6 de 1m para conectividad gigabit fiable"
+    - title: "Tarjeta QR y guía de inicio rápido"
+      description: "Tu tarjeta con ID de dispositivo único — escanéala y estarás listo en minutos"
+
+software:
+  title: "Preinstalado y listo para usar"
+  subtitle: "Todo está configurado desde el primer arranque. Sin instalaciones, sin dependencias que perseguir."
+  items:
+    - name: "VS Code"
+      detail: "Visual Studio Code completo en tu navegador vía code-server"
+    - name: "Integraciones de IA"
+      detail: "Conecta OpenAI, Anthropic, GitHub Copilot, OpenRouter, HuggingFace"
+    - name: "Docker"
+      detail: "Aislamiento de proyectos y contenedores, listos para usar"
+    - name: "Node.js 22 LTS"
+      detail: "npm y pnpm incluidos"
+    - name: "PHP 8.4"
+      detail: "Con el gestor de paquetes Composer"
+    - name: "Python 3.12"
+      detail: "Con el gestor de paquetes pip"
+    - name: "Git"
+      detail: "Preconfigurado y listo para control de versiones"
+    - name: "SQLite"
+      detail: "Base de datos ligera, cero configuración"
+    - name: "Redis (Valkey)"
+      detail: "Caché y colas integradas"
+    - name: "Cloudflare Tunnel"
+      detail: "Despliegue web seguro, sin necesidad de abrir puertos"
+
+features:
+  title: "Todo lo que necesitas para construir"
+  subtitle: "Preconfigurado, siempre encendido y completamente tuyo."
+  items:
+    - title: "Desarrollo con IA primero"
+      description: "ChatGPT, Claude, Copilot, OpenRouter, HuggingFace — conéctalos todos en el asistente de configuración. Tus claves API, almacenadas cifradas en tu propio hardware."
+    - title: "VS Code en tu navegador"
+      description: "Visual Studio Code completo se ejecuta en el dispositivo. Ábrelo desde cualquier navegador en tu red. Copilot y extensiones preinstaladas."
+    - title: "Despliega en la web"
+      description: "Túneles HTTPS seguros publican tus proyectos en yourname.vibellmpc.com. Activa y desactiva despliegues desde el panel de control."
+    - title: "Tu hardware, tus datos"
+      description: "Todo se ejecuta en un Raspberry Pi 5 en tu escritorio. Sin dependencia de la nube. Sin facturas mensuales de computación. Tu código y claves nunca salen de tu dispositivo."
+    - title: "Plantillas de proyectos"
+      description: "Empieza con Laravel, Next.js, Astro, Python o HTML puro. Cada plantilla viene preconectada con tus servicios de IA y lista para desplegar."
+    - title: "Siempre encendido, consumo ultrabajo"
+      description: "El Raspberry Pi 5 consume solo 15W. Déjalo funcionando 24/7 por céntimos. Tus proyectos siguen activos, tus túneles siguen abiertos."
+
+who:
+  title: "Hecho para creadores de todo tipo"
+  subtitle: "Ya seas un desarrollador experimentado o estés empezando con la programación asistida por IA."
+  items:
+    - emoji: "🚀"
+      title: "Indie Hackers y desarrolladores independientes"
+      description: "Una máquina de desarrollo dedicada y siempre encendida que no es tu portátil. Construye tu SaaS, proyecto personal o MVP de startup en hardware que es tuyo."
+    - emoji: "🎓"
+      title: "Personas aprendiendo a programar"
+      description: "Un entorno autónomo que simplemente funciona. Sin infiernos de configuración, sin dependencias rotas. Abre tu navegador y empieza a aprender."
+    - emoji: "🤖"
+      title: "Vibe Coders"
+      description: "La ola creciente de desarrolladores no tradicionales que usan IA para construir software real. VibeLLMPC está hecho para ti."
+    - emoji: "🏠"
+      title: "Self-Hosters"
+      description: "Ejecuta tus propios servicios sin el dolor de la administración de servidores. Tus datos, tu hardware, tus reglas."
+    - emoji: "👩‍🏫"
+      title: "Educadores y bootcamps"
+      description: "Entornos de desarrollo consistentes y preconfigurados para cada estudiante. Se acabó el \"en mi máquina funciona\" — todos tienen la misma máquina."
+    - emoji: "⚡"
+      title: "Tinkerers y makers"
+      description: "Si te encanta el ecosistema Pi pero odias la configuración, VibeLLMPC te da una plataforma lista para construir encima."
+
+platform:
+  title: "Más que hardware — es una plataforma"
+  subtitle: "Cada dispositivo se conecta a vibellmpc.com a través de un Cloudflare Tunnel seguro."
+  features:
+    - title: "Subdominio personal"
+      description: "Obtén yourname.vibellmpc.com — tu propio rincón en la web, impulsado por tu dispositivo."
+    - title: "HTTPS por defecto"
+      description: "Cada despliegue es seguro, automáticamente. Sin certificados que gestionar, sin configuración necesaria."
+    - title: "Control desde el panel"
+      description: "Gestiona despliegues, monitoriza tu dispositivo y actualiza el software — todo desde la web."
+    - title: "Comunidad"
+      description: "Únete a otros usuarios de VibeLLMPC en Discord. Comparte proyectos, pide ayuda y aprende juntos."
+  note: "El hardware base funciona completamente sin conexión. La suscripción a la plataforma es opcional y solo se necesita para publicar en la web."
+
+pricing:
+  title: "Precios simples y transparentes"
+  subtitle: "Un dispositivo. Suscripción opcional para publicar en la web."
+  device:
+    label: "El dispositivo"
+    price: "$349"
+    period: "pago único"
+    features:
+      - "Raspberry Pi 5 — 16 GB de RAM"
+      - "SSD NVMe de 128 GB"
+      - "Carcasa personalizada, fuente de alimentación, cable Ethernet"
+      - "Preinstalado: VS Code, Docker, Node, PHP, Python"
+      - "Funciona completamente sin conexión — sin suscripción obligatoria"
+  subscription:
+    label: "Plan Starter"
+    badge: "Popular"
+    price: "$5"
+    period: "/mes"
+    features:
+      - "Tu subdominio: you.vibellmpc.com"
+      - "Túnel HTTPS a tu dispositivo"
+      - "10 GB de ancho de banda / mes"
+      - "Soporte comunitario + Discord"
+      - "Planes Pro y Team próximamente"
+  footnote: "Precios especiales para miembros de la lista de espera. Precios definitivos anunciados en el lanzamiento."
+
+specs:
+  title: "Especificaciones técnicas"
+  subtitle: "Caja pequeña. Potencia seria."
+  rows:
+    - label: "SBC"
+      value: "Raspberry Pi 5 — 16 GB de RAM LPDDR4X"
+    - label: "Almacenamiento"
+      value: "SSD NVMe de 128 GB (M.2, mediante M.2 HAT+)"
+    - label: "CPU"
+      value: "Broadcom BCM2712, Quad-core Arm Cortex-A76 @ 2.4 GHz"
+    - label: "GPU"
+      value: "VideoCore VII"
+    - label: "Conectividad"
+      value: "Gigabit Ethernet, Wi-Fi 5 (802.11ac), Bluetooth 5.0"
+    - label: "Puertos"
+      value: "2× USB 3.0, 2× USB 2.0, 2× micro-HDMI, alimentación USB-C"
+    - label: "Alimentación"
+      value: "USB-C, 27W (5V/5A) — fuente incluida"
+    - label: "SO"
+      value: "Debian 12 (Bookworm), imagen personalizada"
+    - label: "Carcasa"
+      value: "Carcasa personalizada moldeada por inyección con refrigeración pasiva"
+    - label: "Dimensiones"
+      value: "~120 × 85 × 40 mm"
+    - label: "Peso"
+      value: "~180g (con carcasa y tarjeta SD)"
+  footnote: "Preinstalado: VS Code (code-server), Docker, Node.js 22 LTS, PHP 8.4, Python 3.12, Git, SQLite, Redis, Cloudflare Tunnel"
+
+stretch_goals:
+  title: "Metas de financiación"
+  subtitle: "Cuantos más nos apoyen, más desbloqueamos para todos."
+  goals:
+    - amount: "$50,000"
+      label: "Financiado"
+      description: "El producto base se envía tal como se describe"
+    - amount: "$75,000"
+      label: "App móvil"
+      description: "App complementaria para iOS + Android — gestiona tu dispositivo desde tu teléfono"
+    - amount: "$100,000"
+      label: "Marketplace de plantillas"
+      description: "Marketplace comunitario de plantillas — comparte y descubre plantillas de proyectos"
+    - amount: "$150,000"
+      label: "VibeLLMPC Pro"
+      description: "Raspberry Pi CM5, 16 GB de RAM, carcasa de aluminio sin ventilador"
+    - amount: "$200,000"
+      label: "Edición Classroom"
+      description: "Pack de 10 con panel de gestión centralizado para educadores"
+    - amount: "$250,000"
+      label: "Sistema de plugins"
+      description: "Extensiones del panel creadas por la comunidad — monitorización, bases de datos, CMS"
+
+terminal:
+  window_title: "vibellmpc.local"
+
+faq:
+  title: "Preguntas frecuentes"
+  subtitle: "Todo lo que necesitas saber sobre VibeLLMPC."
+  items:
+    - question: "¿Necesito saber Linux para usar esto?"
+      answer: "No. Toda la configuración se hace mediante un asistente web guiado. Nunca necesitas tocar la terminal a menos que quieras."
+    - question: "¿Puedo usarlo sin conexión a internet?"
+      answer: "Sí. El dispositivo funciona completamente sin conexión para desarrollo local. Solo necesitas internet para validar las claves API de IA durante la configuración inicial (que se degrada con elegancia) y para desplegar proyectos en la web."
+    - question: "¿Qué servicios de IA soporta?"
+      answer: "OpenAI (ChatGPT/GPT-4), Anthropic (Claude), GitHub Copilot, OpenRouter (acceso a docenas de modelos) y HuggingFace. Tú traes tus propias claves API — nosotros no revendemos acceso a IA ni nos llevamos una comisión."
+    - question: "¿El software es de código abierto?"
+      answer: "El software del dispositivo se publicará como código abierto después del lanzamiento. La plataforma en la nube (vibellmpc.com) es propietaria. Los patrocinadores obtienen acceso anticipado al código fuente."
+    - question: "¿Puedo usar mi propio Raspberry Pi?"
+      answer: "Planeamos publicar la imagen del dispositivo para descargar después del lanzamiento. Sin embargo, las recompensas de Kickstarter incluyen el paquete completo de hardware con carcasa personalizada, tarjeta SD preconfigurada y emparejamiento QR — la experiencia completa."
+    - question: "¿Para qué es la suscripción de $5/mes?"
+      answer: "El plan Starter te da un subdominio personal (yourname.vibellmpc.com), túneles HTTPS para desplegar tus proyectos en la web, y soporte comunitario. El desarrollo local es completamente gratuito sin necesidad de suscripción."
+    - question: "¿Cuánta energía consume?"
+      answer: "Unos 15 vatios bajo carga típica. Eso es aproximadamente $1–2/mes en electricidad para funcionar 24/7, dependiendo de tus tarifas locales."
+    - question: "¿Puedo conectar un monitor y teclado directamente?"
+      answer: "Sí. El Raspberry Pi 5 tiene 2× micro-HDMI y puertos USB. Puedes usarlo sin pantalla (desde el navegador) o con una pantalla directa. La mayoría de usuarios prefieren la experiencia de VS Code en el navegador ya que es accesible desde cualquier dispositivo en su red."
+    - question: "¿Qué pasa si VibeLLMPC (la empresa) desaparece?"
+      answer: "Tu dispositivo sigue funcionando. Es un Raspberry Pi ejecutando software de código abierto en tu escritorio. Las funciones en la nube (subdominio, túneles) dejarían de funcionar, pero tu hardware, código y entorno de desarrollo local son tuyos para siempre."
+
+cta:
+  title: "¿Listo para vibrar?"
+  description: "Únete a la lista de espera y sé el primero en conseguir tu VibeLLMPC cuando lancemos."
+
+footer:
+  copyright: "VibeLLMPC. Todos los derechos reservados."
+
+languages:
+  en: "English"
+  fr: "Français"
+  de: "Deutsch"
+  es: "Español"
+  it: "Italiano"
+  pt: "Português"
+  nl: "Nederlands"
+  bg: "Български"
+---
