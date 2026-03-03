@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\AiProviderConfig;
-use App\Models\CloudCredential;
-use App\Models\GitHubCredential;
-use App\Models\Project;
-use App\Models\ProjectLog;
+use App\Enums\OllamaModelStatus;
+use App\Models\DeviceState;
+use App\Models\OllamaModel;
+use App\Models\TunnelConfig;
 use App\Services\Tunnel\TunnelService;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -18,42 +17,36 @@ use Livewire\Component;
 #[Title('Overview — VibeLLMPC')]
 class Overview extends Component
 {
-    public string $username = '';
+    public int $installedModelCount = 0;
 
-    public int $projectCount = 0;
-
-    public int $runningCount = 0;
+    public ?string $defaultModel = null;
 
     public bool $tunnelRunning = false;
 
-    public int $aiProviderCount = 0;
+    public ?string $tunnelSubdomain = null;
 
-    public bool $hasCopilot = false;
+    public bool $n8nEnabled = false;
 
-    /** @var array<int, array{message: string, type: string, created_at: string}> */
-    public array $recentActivity = [];
+    public string $ollamaStatus = 'unknown';
 
     public function mount(TunnelService $tunnelService): void
     {
-        $credential = CloudCredential::current();
-        $this->username = $credential?->cloud_username ?? 'User';
-
-        $this->projectCount = Project::count();
-        $this->runningCount = Project::running()->count();
+        $this->installedModelCount = OllamaModel::where('status', OllamaModelStatus::Installed)->count();
+        $this->defaultModel = DeviceState::getValue('default_model');
         $this->tunnelRunning = $tunnelService->isRunning();
-        $this->aiProviderCount = AiProviderConfig::whereNotNull('validated_at')->count();
-        $this->hasCopilot = GitHubCredential::current()?->hasCopilot() ?? false;
+        $this->n8nEnabled = DeviceState::getValue('n8n_enabled') === 'true';
 
-        $this->recentActivity = ProjectLog::with('project')
-            ->latest()
-            ->limit(5)
-            ->get()
-            ->map(fn (ProjectLog $log) => [
-                'message' => ($log->project?->name ?? 'System').': '.$log->message,
-                'type' => $log->type,
-                'created_at' => $log->created_at->diffForHumans(),
-            ])
-            ->all();
+        $tunnelConfig = TunnelConfig::current();
+        $this->tunnelSubdomain = $tunnelConfig?->subdomain;
+
+        $this->ollamaStatus = $this->checkOllama();
+    }
+
+    private function checkOllama(): string
+    {
+        $result = @file_get_contents('http://localhost:11434/');
+
+        return $result !== false ? 'running' : 'stopped';
     }
 
     public function render()
