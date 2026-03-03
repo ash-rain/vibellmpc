@@ -142,7 +142,7 @@
 
                         {{-- Pricing teaser --}}
                         <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-                            <p class="text-sm text-gray-400">Plans start at <span class="font-semibold text-white">$5/mo</span> — cancel anytime, no contracts.</p>
+                            <p class="text-sm text-gray-400">Plans start at <span class="font-semibold text-white">$9/mo</span> — cancel anytime, no contracts.</p>
                             <a href="{{ route('billing.subscribe') }}"
                                class="inline-flex items-center justify-center gap-2 shrink-0 rounded-xl px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:shadow-emerald-500/40 hover:scale-105">
                                 View Plans

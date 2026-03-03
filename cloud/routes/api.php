@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DeviceDeregisterController;
 use App\Http\Controllers\Api\DeviceHeartbeatController;
 use App\Http\Controllers\Api\DeviceStatsController;
 use App\Http\Controllers\Api\DeviceTunnelController;
+use App\Http\Controllers\Api\ModelNotificationController;
 use App\Http\Controllers\Api\SubdomainController;
 use App\Http\Controllers\Api\TunnelErrorController;
 use Illuminate\Http\Request;
@@ -71,4 +72,7 @@ Route::middleware(['auth:sanctum', 'device.owner'])
 
         Route::post('/deregister', DeviceDeregisterController::class)
             ->name('deregister');
+
+        Route::post('/models/available', [ModelNotificationController::class, 'store'])
+            ->name('models.available');
     });
